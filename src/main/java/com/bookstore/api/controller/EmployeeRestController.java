@@ -23,8 +23,17 @@ public class EmployeeRestController {
 
     // expose "/employees" and return a list of employees
     @GetMapping("/employees")
-    public List<Employee> findAll() {
-        return employeeService.findAll();
+    public EmployeeDTO findAll() {
+
+        List<Employee> employees = employeeService.findAll();
+
+        EmployeeDTO employeeDTO = new EmployeeDTO();
+
+        employeeDTO.setError(false);
+        employeeDTO.setMessage("success");
+        employeeDTO.setResult(employees);
+
+        return employeeDTO;
     }
 
     // add mapping for GET "/employees/{employeeId}"
@@ -39,18 +48,20 @@ public class EmployeeRestController {
         if (theEmployee == null) {
             employeeDTO.setError(true);
             employeeDTO.setMessage("employee id not found - " + employeeId);
+            employeeDTO.setResult(Collections.emptyList());
             return new ResponseEntity<>(employeeDTO, HttpStatus.NOT_FOUND);
         }
 
         employeeDTO.setError(false);
         employeeDTO.setMessage("success");
         employeeDTO.setResult(Collections.singletonList(theEmployee));
+
         return new ResponseEntity<>(employeeDTO, HttpStatus.OK);
     }
 
     // add mapping for POST "/employees" - add new employee
     @PostMapping("/employees")
-    public Employee addEmployee(@RequestBody Employee theEmployee) {
+    public EmployeeDTO addEmployee(@RequestBody Employee theEmployee) {
 
         // also just in case they pass an id in JSON ... set id to 0
         // this is to force a save of new item ... instead of update
@@ -59,7 +70,12 @@ public class EmployeeRestController {
 
         Employee dbEmployee = employeeService.save(theEmployee);
 
-        return dbEmployee;
+        EmployeeDTO employeeDTO = new EmployeeDTO();
+        employeeDTO.setError(false);
+        employeeDTO.setMessage("added employee id - " + dbEmployee.getId());
+        employeeDTO.setResult(Collections.singletonList(dbEmployee));
+
+        return employeeDTO;
     }
 
     // add mapping for PUT "/employees" - update existing employee
@@ -73,17 +89,26 @@ public class EmployeeRestController {
 
     // add mapping for DELETE "/employees/{employeeId}" - delete employee
     @DeleteMapping("/employees/{employeeId}")
-    public String deleteEmployee(@PathVariable int employeeId) {
+    public ResponseEntity<EmployeeDTO> deleteEmployee(@PathVariable int employeeId) {
 
         Employee theEmployee = employeeService.findById(employeeId);
 
+        EmployeeDTO employeeDTO = new EmployeeDTO();
+
         // throw exception if null
         if (theEmployee == null) {
-            throw new RuntimeException("Employee id not found - " + employeeId);
+            employeeDTO.setError(true);
+            employeeDTO.setMessage("employee id not found - " + employeeId);
+            employeeDTO.setResult(Collections.emptyList());
+            return new ResponseEntity<>(employeeDTO, HttpStatus.NOT_FOUND);
         }
 
         employeeService.deleteById(employeeId);
 
-        return "Deleted employee id - " + employeeId;
+        employeeDTO.setError(false);
+        employeeDTO.setMessage("deleted employee id - " + employeeId);
+        employeeDTO.setResult(Collections.singletonList(theEmployee));
+
+        return new ResponseEntity<>(employeeDTO, HttpStatus.OK);
     }
 }
