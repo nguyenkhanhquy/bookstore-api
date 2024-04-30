@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -23,17 +22,9 @@ public class EmployeeRestController {
 
     // expose "/employees" and return a list of employees
     @GetMapping("/employees")
-    public EmployeeDTO findAll() {
+    public List<Employee> findAll() {
 
-        List<Employee> employees = employeeService.findAll();
-
-        EmployeeDTO employeeDTO = new EmployeeDTO();
-
-        employeeDTO.setError(false);
-        employeeDTO.setMessage("success");
-        employeeDTO.setResult(employees);
-
-        return employeeDTO;
+        return employeeService.findAll();
     }
 
     // add mapping for GET "/employees/{employeeId}"
@@ -48,13 +39,12 @@ public class EmployeeRestController {
         if (theEmployee == null) {
             employeeDTO.setError(true);
             employeeDTO.setMessage("employee id not found - " + employeeId);
-            employeeDTO.setResult(Collections.emptyList());
             return new ResponseEntity<>(employeeDTO, HttpStatus.NOT_FOUND);
         }
 
         employeeDTO.setError(false);
         employeeDTO.setMessage("success");
-        employeeDTO.setResult(Collections.singletonList(theEmployee));
+        employeeDTO.setEmployee(theEmployee);
 
         return new ResponseEntity<>(employeeDTO, HttpStatus.OK);
     }
@@ -73,7 +63,7 @@ public class EmployeeRestController {
         EmployeeDTO employeeDTO = new EmployeeDTO();
         employeeDTO.setError(false);
         employeeDTO.setMessage("added employee id - " + dbEmployee.getId());
-        employeeDTO.setResult(Collections.singletonList(dbEmployee));
+        employeeDTO.setEmployee(dbEmployee);
 
         return employeeDTO;
     }
@@ -99,7 +89,6 @@ public class EmployeeRestController {
         if (theEmployee == null) {
             employeeDTO.setError(true);
             employeeDTO.setMessage("employee id not found - " + employeeId);
-            employeeDTO.setResult(Collections.emptyList());
             return new ResponseEntity<>(employeeDTO, HttpStatus.NOT_FOUND);
         }
 
@@ -107,7 +96,7 @@ public class EmployeeRestController {
 
         employeeDTO.setError(false);
         employeeDTO.setMessage("deleted employee id - " + employeeId);
-        employeeDTO.setResult(Collections.singletonList(theEmployee));
+        employeeDTO.setEmployee(theEmployee);
 
         return new ResponseEntity<>(employeeDTO, HttpStatus.OK);
     }
