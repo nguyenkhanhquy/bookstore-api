@@ -13,4 +13,6 @@ public interface EmployeeService {
     Employee save(Employee theEmployee);
 
     void deleteById(Integer id);
+
+    Employee findByUsername(String username);
 }

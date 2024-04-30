@@ -11,7 +11,6 @@ import java.util.Optional;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-
     private final EmployeeRepository employeeRepository;
 
     @Autowired
@@ -51,5 +50,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public void deleteById(Integer id) {
         employeeRepository.deleteById(id);
+    }
+
+    @Override
+    public Employee findByUsername(String username) {
+        return employeeRepository.findByUserName(username);
     }
 }
