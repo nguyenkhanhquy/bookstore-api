@@ -68,12 +68,35 @@ public class EmployeeRestController {
     }
 
     // add mapping for PUT "/employees" - update existing employee
-    @PutMapping("/employees")
-    public Employee updateEmployee(@RequestBody Employee theEmployee) {
+    @PutMapping("/employees/{employeeId}")
+    public ResponseEntity<EmployeeDTO> updateEmployee(@PathVariable int employeeId,
+                                                      @RequestBody Employee employee) {
+
+        Employee theEmployee = employeeService.findById(employeeId);
+
+        EmployeeDTO employeeDTO = new EmployeeDTO();
+
+        // throw exception if null
+        if (theEmployee == null) {
+            employeeDTO.setError(true);
+            employeeDTO.setMessage("employee id not found - " + employeeId);
+            return new ResponseEntity<>(employeeDTO, HttpStatus.NOT_FOUND);
+        }
+
+        theEmployee.setUserName(employee.getUserName());
+        theEmployee.setFName(employee.getFName());
+        theEmployee.setEmail(employee.getEmail());
+        theEmployee.setGender(employee.getGender());
+        theEmployee.setImages(employee.getImages());
+        theEmployee.setPassword(employee.getPassword());
 
         Employee dbEmployee = employeeService.save(theEmployee);
 
-        return dbEmployee;
+        employeeDTO.setError(false);
+        employeeDTO.setMessage("success");
+        employeeDTO.setEmployee(dbEmployee);
+
+        return new ResponseEntity<>(employeeDTO, HttpStatus.OK);
     }
 
     // add mapping for DELETE "/employees/{employeeId}" - delete employee
