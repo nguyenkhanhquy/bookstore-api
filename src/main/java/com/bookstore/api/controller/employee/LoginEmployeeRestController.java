@@ -1,4 +1,4 @@
-package com.bookstore.api.controller;
+package com.bookstore.api.controller.employee;
 
 import com.bookstore.api.dto.EmployeeDTO;
 import com.bookstore.api.entity.Employee;
@@ -11,12 +11,12 @@ import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/v1")
-public class LoginRestController {
+public class LoginEmployeeRestController {
 
     private final EmployeeService employeeService;
 
     // quick and dirty: inject employees dao (use constructor injection)
-    public LoginRestController(EmployeeService employeeService) {
+    public LoginEmployeeRestController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
 

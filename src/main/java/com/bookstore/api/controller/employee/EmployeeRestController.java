@@ -1,4 +1,4 @@
-package com.bookstore.api.controller;
+package com.bookstore.api.controller.employee;
 
 import com.bookstore.api.dto.EmployeeDTO;
 import com.bookstore.api.entity.Employee;
