@@ -50,6 +50,7 @@
     </dependencies>
 
     <build>
+        <finalName>bookstore-api</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
