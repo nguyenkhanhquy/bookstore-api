@@ -84,7 +84,7 @@ public class CustomerRestController {
         }
 
         theCustomer.setUserName(customer.getUserName());
-        theCustomer.setFName(customer.getFName());
+        theCustomer.setFullName(customer.getFullName());
         theCustomer.setEmail(customer.getEmail());
         theCustomer.setGender(customer.getGender());
         theCustomer.setImages(customer.getImages());

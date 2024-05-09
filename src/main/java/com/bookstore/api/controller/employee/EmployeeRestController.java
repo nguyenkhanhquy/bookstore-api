@@ -84,7 +84,7 @@ public class EmployeeRestController {
         }
 
         theEmployee.setUserName(employee.getUserName());
-        theEmployee.setFName(employee.getFName());
+        theEmployee.setFullName(employee.getFullName());
         theEmployee.setEmail(employee.getEmail());
         theEmployee.setGender(employee.getGender());
         theEmployee.setImages(employee.getImages());
