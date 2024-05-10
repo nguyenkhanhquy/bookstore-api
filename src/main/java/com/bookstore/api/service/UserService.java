@@ -15,4 +15,8 @@ public interface UserService {
     void deleteById(Integer id);
 
     User findByUsername(String userName);
+
+    boolean existsByUsername(String userName);
+
+    boolean existsByEmail(String email);
 }
