@@ -1,7 +1,7 @@
 package com.bookstore.api.controller;
 
 import com.bookstore.api.dto.ProductDTO;
-import com.bookstore.api.entity.Product;
+import com.bookstore.api.entity.product.Product;
 import com.bookstore.api.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

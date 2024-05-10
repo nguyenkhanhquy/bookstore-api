@@ -1,6 +1,6 @@
 package com.bookstore.api.service;
 
-import com.bookstore.api.entity.Product;
+import com.bookstore.api.entity.product.Product;
 
 import java.util.List;
 

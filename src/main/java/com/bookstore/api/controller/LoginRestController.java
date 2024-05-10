@@ -1,7 +1,7 @@
 package com.bookstore.api.controller;
 
 import com.bookstore.api.dto.UserDTO;
-import com.bookstore.api.entity.User;
+import com.bookstore.api.entity.user.User;
 import com.bookstore.api.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

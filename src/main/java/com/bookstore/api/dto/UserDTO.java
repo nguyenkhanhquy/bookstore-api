@@ -1,6 +1,6 @@
 package com.bookstore.api.dto;
 
-import com.bookstore.api.entity.User;
+import com.bookstore.api.entity.user.User;
 import lombok.*;
 
 @NoArgsConstructor

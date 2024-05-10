@@ -1,16 +1,16 @@
-package com.bookstore.api.entity;
+package com.bookstore.api.entity.product;
 
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "role")
+@Table(name = "product")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
-public class Role {
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,4 +19,13 @@ public class Role {
 
     @Column(name = "name")
     private String name;
+
+    @Column(name = "images")
+    private String images;
+
+    @Column(name = "description", length = 1000)
+    private String description;
+
+    @Column(name = "price")
+    private double price;
 }

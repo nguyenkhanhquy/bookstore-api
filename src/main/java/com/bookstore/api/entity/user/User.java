@@ -1,7 +1,8 @@
-package com.bookstore.api.entity;
+package com.bookstore.api.entity.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-        import lombok.*;
+import lombok.*;
 
 @Entity
 @Table(name = "user")
@@ -33,6 +34,7 @@ public class User {
     private String images;
 
     @Column(name = "password")
+    @JsonIgnore
     private String password;
 
     @Column(name = "address")
