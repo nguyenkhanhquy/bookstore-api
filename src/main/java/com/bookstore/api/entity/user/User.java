@@ -1,6 +1,5 @@
 package com.bookstore.api.entity.user;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -38,6 +37,9 @@ public class User {
 
     @Column(name = "address")
     private String address;
+
+    @Column(name = "phone")
+    private String phone;
 
     @ManyToOne
     @JoinColumn(name = "role_id")

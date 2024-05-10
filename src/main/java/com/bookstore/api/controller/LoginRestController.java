@@ -3,8 +3,6 @@ package com.bookstore.api.controller;
 import com.bookstore.api.dto.UserDTO;
 import com.bookstore.api.entity.user.User;
 import com.bookstore.api.service.UserService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
@@ -21,7 +19,7 @@ public class LoginRestController {
     }
 
     @PostMapping("/users/login")
-    public ResponseEntity<UserDTO> login(@RequestParam(required = false) String userName,
+    public UserDTO login(@RequestParam(required = false) String userName,
                                          @RequestParam(required = false) String password) {
 
         User user = userService.findByUsername(userName);
@@ -33,13 +31,13 @@ public class LoginRestController {
             userDTO.setError(true);
             userDTO.setMessage("Invalid username or password");
             userDTO.setUser(null);
-            return new ResponseEntity<>(userDTO, HttpStatus.UNAUTHORIZED);
+            return userDTO;
         }
 
         userDTO.setError(false);
         userDTO.setMessage("Login successfull");
         userDTO.setUser(user);
 
-        return new ResponseEntity<>(userDTO, HttpStatus.OK);
+        return userDTO;
     }
 }

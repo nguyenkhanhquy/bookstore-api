@@ -4,6 +4,7 @@ import com.bookstore.api.dto.UserDTO;
 import com.bookstore.api.entity.cart.Cart;
 import com.bookstore.api.entity.user.User;
 import com.bookstore.api.service.CartService;
+import com.bookstore.api.service.RoleService;
 import com.bookstore.api.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,10 +14,12 @@ public class RegisterRestController {
 
     private final UserService userService;
     private final CartService cartService;
+    private final RoleService roleService;
 
-    public RegisterRestController(UserService userService, CartService cartService) {
+    public RegisterRestController(UserService userService, CartService cartService, RoleService roleService) {
         this.userService = userService;
         this.cartService = cartService;
+        this.roleService = roleService;
     }
 
     @PostMapping("/users/register")
@@ -35,6 +38,7 @@ public class RegisterRestController {
             userDTO.setMessage("Email already exists");
         } else {
             theUser.setId(0);
+            theUser.setRole(roleService.findById(2));
 
             User dbUser = userService.save(theUser);
             Cart cart = new Cart();
