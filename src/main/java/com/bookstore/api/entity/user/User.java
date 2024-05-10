@@ -34,7 +34,6 @@ public class User {
     private String images;
 
     @Column(name = "password")
-    @JsonIgnore
     private String password;
 
     @Column(name = "address")
