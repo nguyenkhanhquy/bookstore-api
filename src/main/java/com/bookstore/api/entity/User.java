@@ -1,16 +1,16 @@
 package com.bookstore.api.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+        import lombok.*;
 
 @Entity
-@Table(name = "employee")
+@Table(name = "user")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
-public class Employee {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,4 +34,11 @@ public class Employee {
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "address")
+    private String address;
+
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
 }

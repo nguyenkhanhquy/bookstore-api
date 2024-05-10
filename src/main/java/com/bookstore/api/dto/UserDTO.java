@@ -1,6 +1,6 @@
 package com.bookstore.api.dto;
 
-import com.bookstore.api.entity.Customer;
+import com.bookstore.api.entity.User;
 import lombok.*;
 
 @NoArgsConstructor
@@ -8,9 +8,9 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class CustomerDTO {
+public class UserDTO {
 
     private boolean error;
     private String message;
-    private Customer customer;
+    private User user;
 }
