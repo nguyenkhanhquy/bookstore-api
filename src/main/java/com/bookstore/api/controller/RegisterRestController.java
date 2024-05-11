@@ -36,9 +36,13 @@ public class RegisterRestController {
         } else if (userService.existsByEmail(theUser.getEmail())) {
             userDTO.setError(true);
             userDTO.setMessage("Email already exists");
+        } else if (userService.existsByPhone(theUser.getPhone())) {
+            userDTO.setError(true);
+            userDTO.setMessage("Phone already exists");
         } else {
             theUser.setId(0);
             theUser.setRole(roleService.findById(2));
+            theUser.setImages("https://book-store-upload.s3.amazonaws.com/user-images/default-images.png");
 
             User dbUser = userService.save(theUser);
             Cart cart = new Cart();
@@ -46,7 +50,7 @@ public class RegisterRestController {
             cartService.save(cart);
 
             userDTO.setError(false);
-            userDTO.setMessage("Register successfull");
+            userDTO.setMessage("Register successfully");
             userDTO.setUser(dbUser);
         }
 

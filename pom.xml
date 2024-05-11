@@ -47,6 +47,11 @@
             <artifactId>lombok</artifactId>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>s3</artifactId>
+            <version>2.25.50</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -35,7 +35,7 @@ public class LoginRestController {
         }
 
         userDTO.setError(false);
-        userDTO.setMessage("Login successfull");
+        userDTO.setMessage("Login successfully");
         userDTO.setUser(user);
 
         return userDTO;

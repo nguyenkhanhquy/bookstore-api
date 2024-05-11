@@ -3,10 +3,13 @@ package com.bookstore.api.controller;
 import com.bookstore.api.dto.UserDTO;
 import com.bookstore.api.entity.user.User;
 import com.bookstore.api.service.UserService;
+import com.bookstore.api.util.S3Util;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -120,6 +123,39 @@ public class UserRestController {
         userDTO.setError(false);
         userDTO.setMessage("deleted user id - " + userId);
         userDTO.setUser(theUser);
+
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
+    }
+
+    @PostMapping("/users/updateimages")
+    public ResponseEntity<UserDTO> updateImages(@RequestParam("id") int userId,
+                                                @RequestParam("images") MultipartFile multipart) {
+
+        User theUser = userService.findById(userId);
+
+        UserDTO userDTO = new UserDTO();
+
+        // throw exception if null
+        if (theUser == null) {
+            userDTO.setError(true);
+            userDTO.setMessage("user id not found - " + userId);
+            return new ResponseEntity<>(userDTO, HttpStatus.NOT_FOUND);
+        }
+
+        try {
+            String fileName = multipart.getOriginalFilename();
+            String newFileName = S3Util.urlFolderUser + userId + fileName.substring(fileName.lastIndexOf('.'));
+            S3Util.uploadFile(newFileName, multipart.getInputStream());
+            String urlImage = "https://" + S3Util.bucketName + ".s3.amazonaws.com/" + newFileName;
+            theUser.setImages(urlImage);
+            User dbUser = userService.save(theUser);
+            userDTO.setError(false);
+            userDTO.setMessage("Update images successfully");
+            userDTO.setUser(dbUser);
+        } catch (IOException ex) {
+            userDTO.setError(true);
+            userDTO.setMessage("Error uploading file: " + ex.getMessage());
+        }
 
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
