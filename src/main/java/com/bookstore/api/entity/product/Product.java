@@ -1,4 +1,4 @@
-package com.bookstore.api.entity;
+package com.bookstore.api.entity.product;
 
 import jakarta.persistence.*;
 import lombok.*;

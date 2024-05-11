@@ -1,41 +1,43 @@
 package com.bookstore.api.controller;
 
-import com.bookstore.api.dto.EmployeeDTO;
-import com.bookstore.api.entity.Employee;
-import com.bookstore.api.service.EmployeeService;
+import com.bookstore.api.dto.UserDTO;
+import com.bookstore.api.entity.user.User;
+import com.bookstore.api.service.UserService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/v1")
 public class LoginRestController {
 
-    private final EmployeeService employeeService;
+    private final UserService userService;
 
-    // quick and dirty: inject employees dao (use constructor injection)
-    public LoginRestController(EmployeeService employeeService) {
-        this.employeeService = employeeService;
+    // quick and dirty: inject users dao (use constructor injection)
+    public LoginRestController(UserService userService) {
+        this.userService = userService;
     }
 
-    @PostMapping("/login")
-    public EmployeeDTO login(@RequestParam("userName") String userName,
-                             @RequestParam("password") String password) {
+    @PostMapping("/users/login")
+    public UserDTO login(@RequestParam(required = false) String userName,
+                                         @RequestParam(required = false) String password) {
 
-        Employee employee = employeeService.findByUsername(userName);
+        User user = userService.findByUsername(userName);
 
-        EmployeeDTO employeeDTO = new EmployeeDTO();
+        UserDTO userDTO = new UserDTO();
 
-        // Nếu không tìm thấy nhân viên, hoặc mật khẩu không khớp
-        if (employee == null || !employee.getPassword().equals(password)) {
-            employeeDTO.setError(true);
-            employeeDTO.setMessage("Invalid username or password");
-            employeeDTO.setEmployee(null);
-            return employeeDTO;
+        // Nếu không tìm thấy user, hoặc mật khẩu không khớp
+        if (user == null || !Objects.equals(user.getPassword(), password)) {
+            userDTO.setError(true);
+            userDTO.setMessage("Invalid username or password");
+            userDTO.setUser(null);
+            return userDTO;
         }
 
-        employeeDTO.setError(false);
-        employeeDTO.setMessage("Login successfull");
-        employeeDTO.setEmployee(employee);
+        userDTO.setError(false);
+        userDTO.setMessage("Login successfully");
+        userDTO.setUser(user);
 
-        return employeeDTO;
+        return userDTO;
     }
 }

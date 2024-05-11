@@ -1,7 +1,7 @@
 package com.bookstore.api.service;
 
 import com.bookstore.api.dao.ProductRepository;
-import com.bookstore.api.entity.Product;
+import com.bookstore.api.entity.product.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,5 +20,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> findAll() {
         return productRepository.findAll();
+    }
+
+    @Override
+    public Product findById(Integer id) {
+        return productRepository.findById(id).orElse(null);
     }
 }
