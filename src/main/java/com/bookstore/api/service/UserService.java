@@ -1,6 +1,7 @@
 package com.bookstore.api.service;
 
 import com.bookstore.api.entity.user.User;
+import com.bookstore.api.response.UserResponse;
 
 import java.util.List;
 
@@ -8,7 +9,7 @@ public interface UserService {
 
     List<User> findAll();
 
-    User findById(Integer id);
+    UserResponse findById(Integer id);
 
     User save(User theUser);
 

@@ -1,7 +1,8 @@
 package com.bookstore.api.service;
 
-import com.bookstore.api.dao.UserRepository;
+import com.bookstore.api.repository.UserRepository;
 import com.bookstore.api.entity.user.User;
+import com.bookstore.api.response.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,22 +25,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findById(Integer id) {
-        Optional<User> result = userRepository.findById(id);
+    public UserResponse findById(Integer id) {
 
-        User theUser;
+        UserResponse response = new UserResponse();
+        User user = userRepository.findById(id).orElse(null);
 
-        if (result.isPresent()) {
-            theUser = result.get();
+        if (user == null) {
+            response.setError(true);
+            response.setMessage("User not found");
+        } else {
+            response.setError(false);
+            response.setMessage("User found");
+            response.setUser(user);
         }
-        else {
-            // we didn't find the user
-            // throw new RuntimeException("Did not find employee id - " + id);
-            theUser = null;
-        }
-        // theUser = result.orElse(null);
 
-        return theUser;
+        return response;
     }
 
     @Override

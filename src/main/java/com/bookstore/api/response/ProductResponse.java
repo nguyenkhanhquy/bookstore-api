@@ -1,4 +1,4 @@
-package com.bookstore.api.dto;
+package com.bookstore.api.response;
 
 import com.bookstore.api.entity.product.Product;
 import lombok.*;
@@ -8,7 +8,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class ProductDTO {
+public class ProductResponse {
 
     private boolean error;
     private String message;

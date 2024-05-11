@@ -1,4 +1,4 @@
-package com.bookstore.api.dao;
+package com.bookstore.api.repository;
 
 import com.bookstore.api.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;

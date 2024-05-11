@@ -1,6 +1,6 @@
 package com.bookstore.api.service;
 
-import com.bookstore.api.dao.ProductRepository;
+import com.bookstore.api.repository.ProductRepository;
 import com.bookstore.api.entity.product.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

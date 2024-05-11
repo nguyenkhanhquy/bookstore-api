@@ -1,6 +1,6 @@
 package com.bookstore.api.controller;
 
-import com.bookstore.api.dto.ProductDTO;
+import com.bookstore.api.response.ProductResponse;
 import com.bookstore.api.entity.product.Product;
 import com.bookstore.api.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +13,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")
-public class ProductRestController {
+public class ProductController {
 
     private final ProductService productService;
 
     @Autowired
-    public ProductRestController(ProductService productService) {
+    public ProductController(ProductService productService) {
         this.productService = productService;
     }
 
@@ -28,14 +28,14 @@ public class ProductRestController {
     }
 
     @GetMapping("/products/{productId}")
-    public ProductDTO findById(@PathVariable int productId) {
+    public ProductResponse findById(@PathVariable int productId) {
 
         Product product = productService.findById(productId);
 
         if (product == null) {
-            return new ProductDTO(true, "not found", null);
+            return new ProductResponse(true, "not found", null);
         }
 
-        return new ProductDTO(true, "found", product);
+        return new ProductResponse(true, "found", product);
     }
 }

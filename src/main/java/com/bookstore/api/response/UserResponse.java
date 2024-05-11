@@ -1,6 +1,7 @@
-package com.bookstore.api.dto;
+package com.bookstore.api.response;
 
 import com.bookstore.api.entity.user.User;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 @NoArgsConstructor
@@ -8,7 +9,8 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class UserDTO {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class UserResponse {
 
     private boolean error;
     private String message;

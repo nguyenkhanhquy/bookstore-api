@@ -1,6 +1,6 @@
 package com.bookstore.api.service;
 
-import com.bookstore.api.dao.CartRepository;
+import com.bookstore.api.repository.CartRepository;
 import com.bookstore.api.entity.cart.Cart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
