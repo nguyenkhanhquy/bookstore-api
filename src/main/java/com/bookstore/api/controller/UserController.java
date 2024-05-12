@@ -1,9 +1,13 @@
 package com.bookstore.api.controller;
 
+import com.bookstore.api.entity.cart.Cart;
 import com.bookstore.api.response.UserResponse;
 import com.bookstore.api.entity.user.User;
+import com.bookstore.api.service.CartService;
+import com.bookstore.api.service.RoleService;
 import com.bookstore.api.service.UserService;
 import com.bookstore.api.util.S3Util;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +21,14 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final CartService cartService;
+    private final RoleService roleService;
 
-    // quick and dirty: inject users dao (use constructor injection)
-    public UserController(UserService userService) {
+    @Autowired
+    public UserController(UserService userService, CartService cartService, RoleService roleService) {
         this.userService = userService;
+        this.cartService = cartService;
+        this.roleService = roleService;
     }
 
     // expose "/users" and return a list of users
@@ -103,6 +111,42 @@ public class UserController {
         response.setError(false);
         response.setMessage("deleted user id - " + userId);
         response.setUser(null);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PostMapping("/users/login")
+    public ResponseEntity<UserResponse> login(@RequestParam(required = false) String userName,
+                                              @RequestParam(required = false) String password) {
+
+        UserResponse response = userService.login(userName, password);
+        if (response.isError()) {
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PostMapping("/users/register")
+    public ResponseEntity<UserResponse> register(@RequestBody User theUser) {
+
+        UserResponse response = userService.checkInfo(theUser);
+        if (response.isError()) {
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+
+        theUser.setId(0);
+        theUser.setRole(roleService.findById(1));
+        theUser.setImages("https://book-store-upload.s3.amazonaws.com/user-images/default-images.png");
+
+        User dbUser = userService.save(theUser);
+        Cart cart = new Cart();
+        cart.setUser(dbUser);
+        cartService.save(cart);
+
+        response.setError(false);
+        response.setMessage("Register successfully");
+        response.setUser(dbUser);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
