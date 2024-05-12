@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -53,22 +53,40 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByUsername(String userName) {
-        return userRepository.findByUserName(userName);
+    public UserResponse login(String userName, String password) {
+
+        UserResponse response = new UserResponse();
+        User user = userRepository.findByUserName(userName);
+        if (user == null || !Objects.equals(user.getPassword(), password)) {
+            response.setError(true);
+            response.setMessage("Invalid username or password");
+            return response;
+        }
+
+        response.setError(false);
+        response.setMessage("Login successfully");
+        response.setUser(user);
+        return response;
     }
 
     @Override
-    public boolean existsByUsername(String userName) {
-        return userRepository.existsByUserName(userName);
-    }
+    public UserResponse checkInfo(User theUser) {
 
-    @Override
-    public boolean existsByEmail(String email) {
-        return userRepository.existsByEmail(email);
-    }
+        UserResponse response = new UserResponse();
+        if (userRepository.existsByUserName(theUser.getUserName())) {
+            response.setError(true);
+            response.setMessage("Username already exists");
+        } else if (userRepository.existsByEmail(theUser.getEmail())) {
+            response.setError(true);
+            response.setMessage("Email already exists");
+        } else if (userRepository.existsByPhone(theUser.getPhone())) {
+            response.setError(true);
+            response.setMessage("Phone already exists");
+        } else {
+            response.setError(false);
+            response.setMessage("Info is not duplicated");
+        }
 
-    @Override
-    public boolean existsByPhone(String phone) {
-        return userRepository.existsByPhone(phone);
+        return response;
     }
 }

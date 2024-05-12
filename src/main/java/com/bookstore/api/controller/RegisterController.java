@@ -6,6 +6,8 @@ import com.bookstore.api.entity.user.User;
 import com.bookstore.api.service.CartService;
 import com.bookstore.api.service.RoleService;
 import com.bookstore.api.service.UserService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,37 +25,26 @@ public class RegisterController {
     }
 
     @PostMapping("/users/register")
-    public UserResponse login(@RequestBody User theUser) {
+    public ResponseEntity<UserResponse> register(@RequestBody User theUser) {
 
-        // also just in case they pass an id in JSON ... set id to 0
-        // this is to force a save of new item ... instead of update
-
-        UserResponse userResponse = new UserResponse();
-
-        if (userService.existsByUsername(theUser.getUserName())) {
-            userResponse.setError(true);
-            userResponse.setMessage("Username already exists");
-        } else if (userService.existsByEmail(theUser.getEmail())) {
-            userResponse.setError(true);
-            userResponse.setMessage("Email already exists");
-        } else if (userService.existsByPhone(theUser.getPhone())) {
-            userResponse.setError(true);
-            userResponse.setMessage("Phone already exists");
-        } else {
-            theUser.setId(0);
-            theUser.setRole(roleService.findById(2));
-            theUser.setImages("https://book-store-upload.s3.amazonaws.com/user-images/default-images.png");
-
-            User dbUser = userService.save(theUser);
-            Cart cart = new Cart();
-            cart.setUser(dbUser);
-            cartService.save(cart);
-
-            userResponse.setError(false);
-            userResponse.setMessage("Register successfully");
-            userResponse.setUser(dbUser);
+        UserResponse response = userService.checkInfo(theUser);
+        if (response.isError()) {
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
 
-        return userResponse;
+        theUser.setId(0);
+        theUser.setRole(roleService.findById(1));
+        theUser.setImages("https://book-store-upload.s3.amazonaws.com/user-images/default-images.png");
+
+        User dbUser = userService.save(theUser);
+        Cart cart = new Cart();
+        cart.setUser(dbUser);
+        cartService.save(cart);
+
+        response.setError(false);
+        response.setMessage("Register successfully");
+        response.setUser(dbUser);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
