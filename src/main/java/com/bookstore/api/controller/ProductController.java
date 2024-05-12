@@ -22,12 +22,12 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public List<Product> findAll() {
+    public List<Product> getProducts() {
         return productService.findAll();
     }
 
     @GetMapping("/products/{productId}")
-    public ResponseEntity<ProductResponse> findById(@PathVariable int productId) {
+    public ResponseEntity<ProductResponse> getProductById(@PathVariable int productId) {
 
         ProductResponse response = productService.findById(productId);
         if (response.isError()) {

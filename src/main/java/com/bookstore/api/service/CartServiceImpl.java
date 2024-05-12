@@ -23,8 +23,8 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Cart findById(Integer id) {
-        return cartRepository.findById(id).orElse(null);
+    public Cart findById(Integer cartId) {
+        return cartRepository.findById(cartId).orElse(null);
     }
 
     @Override
@@ -33,7 +33,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Cart findByUserId(int id) {
-        return cartRepository.findByUserId(id);
+    public Cart findByUserId(int userId) {
+        return cartRepository.findByUserId(userId);
     }
 }

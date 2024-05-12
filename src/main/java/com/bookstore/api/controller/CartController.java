@@ -1,7 +1,7 @@
 package com.bookstore.api.controller;
 
-import com.bookstore.api.entity.user.Role;
-import com.bookstore.api.service.RoleService;
+import com.bookstore.api.entity.cart.Cart;
+import com.bookstore.api.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,17 +11,17 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")
-public class RoleController {
+public class CartController {
 
-    private final RoleService roleService;
+    private final CartService cartService;
 
     @Autowired
-    public RoleController(RoleService roleService) {
-        this.roleService = roleService;
+    public CartController(CartService cartService) {
+        this.cartService = cartService;
     }
 
-    @GetMapping("/roles")
-    public List<Role> getRoles() {
-        return roleService.findAll();
+    @GetMapping("/carts")
+    public List<Cart> getCarts() {
+        return cartService.findAll();
     }
 }
