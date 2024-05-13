@@ -183,4 +183,34 @@ public class UserController {
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @PostMapping("/users/updatepassword")
+    public ResponseEntity<UserResponse> updatePassword(@RequestParam(required = false) int id,
+                                                       @RequestParam(required = false) String password,
+                                                       @RequestParam(required = false) String newPassword) {
+
+        UserResponse response = userService.findById(id);
+        if (response.isError()) {
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+
+        User theUser = response.getUser();
+
+        if (!theUser.getPassword().equals(password)) {
+            response.setError(true);
+            response.setMessage("Password does not match");
+            response.setUser(null);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+
+        theUser.setPassword(newPassword);
+
+        User dbUser = userService.save(theUser);
+
+        response.setError(false);
+        response.setMessage("Update password successfully");
+        response.setUser(dbUser);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }
