@@ -151,7 +151,7 @@ public class UserController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PostMapping("/users/updateimages")
+    @PostMapping("/users/update-images")
     public ResponseEntity<UserResponse> updateImages(@RequestParam("id") int userId,
                                                      @RequestParam("images") MultipartFile multipart) {
 
@@ -184,7 +184,7 @@ public class UserController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PostMapping("/users/updatepassword")
+    @PostMapping("/users/update-password")
     public ResponseEntity<UserResponse> updatePassword(@RequestParam(required = false) int id,
                                                        @RequestParam(required = false) String password,
                                                        @RequestParam(required = false) String newPassword) {
