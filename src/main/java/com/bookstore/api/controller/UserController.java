@@ -213,4 +213,11 @@ public class UserController {
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @PostMapping("/users/update-info")
+    public ResponseEntity<UserResponse> updateInfo(@RequestBody User theUser) {
+
+        UserResponse response = userService.updateInfo(theUser);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }

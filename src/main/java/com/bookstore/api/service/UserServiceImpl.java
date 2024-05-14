@@ -89,4 +89,20 @@ public class UserServiceImpl implements UserService {
 
         return response;
     }
+
+    @Override
+    public UserResponse updateInfo(User theUser) {
+
+        UserResponse response = new UserResponse();
+        try {
+            User dbUser = userRepository.save(theUser);
+            response.setError(false);
+            response.setMessage("Update info successfully");
+            response.setUser(dbUser);
+        } catch (Exception e) {
+            response.setError(true);
+            response.setMessage("Error updating info");
+        }
+        return response;
+    }
 }
