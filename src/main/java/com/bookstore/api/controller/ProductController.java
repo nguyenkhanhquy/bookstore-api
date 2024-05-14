@@ -1,6 +1,5 @@
 package com.bookstore.api.controller;
 
-import com.bookstore.api.entity.user.User;
 import com.bookstore.api.response.ProductResponse;
 import com.bookstore.api.entity.product.Product;
 import com.bookstore.api.service.ProductService;
@@ -112,6 +111,37 @@ public class ProductController {
             theProduct.setImages(urlImage);
             response = productService.update(theProduct.getId(), theProduct);
             response.setMessage("Added product id - " + theProduct.getId());
+        } catch (IOException ex) {
+            response.setError(true);
+            response.setMessage("Error uploading file: " + ex.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PostMapping("/products/update-images")
+    public ResponseEntity<ProductResponse> updateImages(@RequestParam("id") int productId,
+                                                        @RequestParam("images") MultipartFile multipart) {
+
+        ProductResponse response = productService.findById(productId);
+        if (response.isError()) {
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+
+        Product theProduct = response.getProduct();
+
+        try {
+            String fileName = multipart.getOriginalFilename();
+            assert fileName != null;
+            String newFileName = S3Util.urlFolderProduct + productId + fileName.substring(fileName.lastIndexOf('.'));
+            S3Util.uploadFile(newFileName, multipart.getInputStream());
+            String urlImage = "https://" + S3Util.bucketName + ".s3.amazonaws.com/" + newFileName;
+
+            theProduct.setImages(urlImage);
+            response = productService.update(productId, theProduct);
+            response.setMessage("Update images successfully");
+            response.setProduct(theProduct);
         } catch (IOException ex) {
             response.setError(true);
             response.setMessage("Error uploading file: " + ex.getMessage());
