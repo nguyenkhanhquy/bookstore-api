@@ -24,14 +24,14 @@ public class Order {
     @Temporal(TemporalType.DATE)
     private Date date;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_track_id", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name = "order_track_id")
     private OrderTrack orderTrack;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 }
