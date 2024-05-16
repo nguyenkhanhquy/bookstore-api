@@ -21,9 +21,6 @@ public class Order {
     @Column(name = "id")
     private int id;
 
-    @Temporal(TemporalType.DATE)
-    private Date date;
-
     @ManyToOne
     @JoinColumn(name = "order_track_id")
     private OrderTrack orderTrack;
