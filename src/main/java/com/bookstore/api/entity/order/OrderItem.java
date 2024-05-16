@@ -21,15 +21,11 @@ public class OrderItem {
     private String nameProduct;
 
     @Column(name = "quantity")
-    private int quantity = 1;
+    private int quantity;
 
     private double price;
 
     @ManyToOne
     @JoinColumn(name = "customer_order_id", nullable = false)
     private Order order;
-
-    public double getTotal() {
-        return price * quantity;
-    }
 }
