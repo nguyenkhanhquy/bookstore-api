@@ -220,4 +220,10 @@ public class UserController {
         UserResponse response = userService.updateInfo(theUser);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @GetMapping("/users/roles/{roleId}")
+    public List<User> getUserByRole(@PathVariable int roleId) {
+
+        return userService.findUsersByRoleId(roleId);
+    }
 }

@@ -105,4 +105,9 @@ public class UserServiceImpl implements UserService {
         }
         return response;
     }
+
+    @Override
+    public List<User> findUsersByRoleId(Integer id) {
+        return userRepository.findUsersByRoleId(id);
+    }
 }

@@ -20,4 +20,6 @@ public interface UserService {
     UserResponse checkInfo(User theUser);
 
     UserResponse updateInfo(User theUser);
+
+    List<User> findUsersByRoleId(Integer id);
 }
