@@ -226,4 +226,25 @@ public class UserController {
 
         return userService.findUsersByRoleId(roleId);
     }
+
+    @PostMapping("/users/add-employee")
+    public ResponseEntity<UserResponse> addEmployee(@RequestBody User theUser) {
+
+        UserResponse response = userService.checkInfo(theUser);
+        if (response.isError()) {
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+
+        theUser.setId(0);
+        theUser.setRole(roleService.findById(2));
+        theUser.setImages("https://book-store-upload.s3.amazonaws.com/user-images/default-images.png");
+
+        User dbUser = userService.save(theUser);
+
+        response.setError(false);
+        response.setMessage("Add employee successfully");
+        response.setUser(dbUser);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }

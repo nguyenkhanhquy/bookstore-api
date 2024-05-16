@@ -20,9 +20,6 @@ public class OrderItem {
     @Column(name = "name_product")
     private String nameProduct;
 
-    @Column(name = "size")
-    private String size;
-
     @Column(name = "quantity")
     private int quantity = 1;
 
