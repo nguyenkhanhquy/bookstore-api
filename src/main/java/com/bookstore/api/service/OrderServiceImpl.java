@@ -61,4 +61,9 @@ public class OrderServiceImpl implements OrderService {
         // Save Order and OrderItems (CascadeType.ALL will save orderItems automatically)
         return orderRepository.save(order);
     }
+
+    @Override
+    public List<Order> getOrdersByUserIdAndOrderTrackId(int userId, int orderTrackId) {
+        return orderRepository.findByUserIdAndOrderTrackId(userId, orderTrackId);
+    }
 }

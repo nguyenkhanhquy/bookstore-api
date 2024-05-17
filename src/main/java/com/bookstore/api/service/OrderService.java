@@ -10,4 +10,6 @@ public interface OrderService {
     List<Order> findAll();
 
     Order createOrder(OrderDTO orderDTO);
+
+    List<Order> getOrdersByUserIdAndOrderTrackId(int userId, int orderTrackId);
 }

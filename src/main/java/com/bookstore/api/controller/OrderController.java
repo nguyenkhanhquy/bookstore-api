@@ -30,4 +30,12 @@ public class OrderController {
         Order order = orderService.createOrder(orderDTO);
         return ResponseEntity.ok(order);
     }
+
+    @GetMapping("/orders/filter")
+    public ResponseEntity<List<Order>> getOrdersByUserIdAndOrderTrackId(
+            @RequestParam int userId,
+            @RequestParam int orderTrackId) {
+        List<Order> orders = orderService.getOrdersByUserIdAndOrderTrackId(userId, orderTrackId);
+        return ResponseEntity.ok(orders);
+    }
 }
