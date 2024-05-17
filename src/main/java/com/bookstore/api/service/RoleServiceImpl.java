@@ -1,7 +1,7 @@
 package com.bookstore.api.service;
 
-import com.bookstore.api.repository.RoleRepository;
 import com.bookstore.api.entity.user.Role;
+import com.bookstore.api.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

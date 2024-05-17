@@ -1,10 +1,10 @@
 package com.bookstore.api.entity.order;
 
 import com.bookstore.api.entity.user.User;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -26,6 +26,7 @@ public class Order {
     private OrderTrack orderTrack;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<OrderItem> orderItems;
 
     @ManyToOne
