@@ -32,10 +32,16 @@ public class OrderController {
     }
 
     @GetMapping("/orders/filter")
-    public ResponseEntity<List<Order>> getOrdersByUserIdAndOrderTrackId(
-            @RequestParam int userId,
-            @RequestParam int orderTrackId) {
+    public ResponseEntity<List<Order>> getOrdersByUserIdAndOrderTrackId(@RequestParam int userId,
+                                                                        @RequestParam int orderTrackId) {
         List<Order> orders = orderService.getOrdersByUserIdAndOrderTrackId(userId, orderTrackId);
         return ResponseEntity.ok(orders);
+    }
+
+    @PostMapping("/orders/update-status")
+    public ResponseEntity<Order> updateOrderStatus(@RequestParam int orderId,
+                                                   @RequestParam int orderTrackId) {
+        Order order = orderService.updateStatus(orderId, orderTrackId);
+        return ResponseEntity.ok(order);
     }
 }

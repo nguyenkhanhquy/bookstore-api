@@ -12,4 +12,6 @@ public interface OrderService {
     Order createOrder(OrderDTO orderDTO);
 
     List<Order> getOrdersByUserIdAndOrderTrackId(int userId, int orderTrackId);
+
+    Order updateStatus(int orderId, int orderTrackId);
 }
