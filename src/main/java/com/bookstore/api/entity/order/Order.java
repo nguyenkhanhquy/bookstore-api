@@ -29,6 +29,8 @@ public class Order {
     @JsonManagedReference
     private List<OrderItem> orderItems;
 
+    private String date;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

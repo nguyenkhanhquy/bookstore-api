@@ -12,8 +12,11 @@ import com.bookstore.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -57,6 +60,12 @@ public class OrderServiceImpl implements OrderService {
             orderItems.add(orderItem);
         }
         order.setOrderItems(orderItems);
+
+        // Set Date
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy",
+                new Locale.Builder().setLanguage("vi").setRegion("VN").build());
+        order.setDate(dateFormat.format(date));
 
         // Save Order and OrderItems (CascadeType.ALL will save orderItems automatically)
         return orderRepository.save(order);
