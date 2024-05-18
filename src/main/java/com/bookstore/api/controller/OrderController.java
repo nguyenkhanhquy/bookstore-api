@@ -38,6 +38,12 @@ public class OrderController {
         return ResponseEntity.ok(orders);
     }
 
+    @GetMapping("/orders/status/{orderTrackId}")
+    public ResponseEntity<List<Order>> getOrdersByOrderTrackId(@PathVariable int orderTrackId) {
+        List<Order> orders = orderService.getOrdersByOrderTrackId(orderTrackId);
+        return ResponseEntity.ok(orders);
+    }
+
     @PostMapping("/orders/update-status")
     public ResponseEntity<Order> updateOrderStatus(@RequestParam int orderId,
                                                    @RequestParam int orderTrackId) {

@@ -11,4 +11,6 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     @Query("SELECT o FROM Order o WHERE o.user.id = :userId AND o.orderTrack.id = :orderTrackId")
     List<Order> findByUserIdAndOrderTrackId(@Param("userId") int userId, @Param("orderTrackId") int orderTrackId);
+
+    List<Order> findByOrderTrackId(int orderTrackId);
 }

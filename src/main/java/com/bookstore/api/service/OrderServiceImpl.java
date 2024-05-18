@@ -77,6 +77,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<Order> getOrdersByOrderTrackId(int orderTrackId) {
+        return orderRepository.findByOrderTrackId(orderTrackId);
+    }
+
+    @Override
     public Order updateStatus(int orderId, int orderTrackId) {
         Order order = orderRepository.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found"));
 

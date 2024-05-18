@@ -13,5 +13,7 @@ public interface OrderService {
 
     List<Order> getOrdersByUserIdAndOrderTrackId(int userId, int orderTrackId);
 
+    List<Order> getOrdersByOrderTrackId(int orderTrackId);
+
     Order updateStatus(int orderId, int orderTrackId);
 }
