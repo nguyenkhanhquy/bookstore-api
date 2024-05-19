@@ -8,9 +8,9 @@ public interface CartService {
 
     List<Cart> findAll();
 
-    Cart findById(Integer id);
+    Cart findById(Integer cartId);
 
     Cart save(Cart theCart);
 
-    Cart findByUserId(int id);
+    Cart findByUserId(int userId);
 }

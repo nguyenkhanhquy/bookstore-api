@@ -1,12 +1,13 @@
 package com.bookstore.api.service;
 
-import com.bookstore.api.dao.UserRepository;
 import com.bookstore.api.entity.user.User;
+import com.bookstore.api.repository.UserRepository;
+import com.bookstore.api.response.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -24,22 +25,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findById(Integer id) {
-        Optional<User> result = userRepository.findById(id);
+    public UserResponse findById(Integer id) {
 
-        User theUser;
+        UserResponse response = new UserResponse();
+        User user = userRepository.findById(id).orElse(null);
 
-        if (result.isPresent()) {
-            theUser = result.get();
+        if (user == null) {
+            response.setError(true);
+            response.setMessage("User not found");
+        } else {
+            response.setError(false);
+            response.setMessage("User found");
+            response.setUser(user);
         }
-        else {
-            // we didn't find the user
-            // throw new RuntimeException("Did not find employee id - " + id);
-            theUser = null;
-        }
-        // theUser = result.orElse(null);
 
-        return theUser;
+        return response;
     }
 
     @Override
@@ -53,22 +53,61 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByUsername(String userName) {
-        return userRepository.findByUserName(userName);
+    public UserResponse login(String userName, String password) {
+
+        UserResponse response = new UserResponse();
+        User user = userRepository.findByUserName(userName);
+        if (user == null || !Objects.equals(user.getPassword(), password)) {
+            response.setError(true);
+            response.setMessage("Invalid username or password");
+            return response;
+        }
+
+        response.setError(false);
+        response.setMessage("Login successfully");
+        response.setUser(user);
+        return response;
     }
 
     @Override
-    public boolean existsByUsername(String userName) {
-        return userRepository.existsByUserName(userName);
+    public UserResponse checkInfo(User theUser) {
+
+        UserResponse response = new UserResponse();
+        if (userRepository.existsByUserName(theUser.getUserName())) {
+            response.setError(true);
+            response.setMessage("Username already exists");
+        } else if (userRepository.existsByEmail(theUser.getEmail())) {
+            response.setError(true);
+            response.setMessage("Email already exists");
+        } else if (userRepository.existsByPhone(theUser.getPhone())) {
+            response.setError(true);
+            response.setMessage("Phone already exists");
+        } else {
+            response.setError(false);
+            response.setMessage("Info is not duplicated");
+        }
+
+        return response;
     }
 
     @Override
-    public boolean existsByEmail(String email) {
-        return userRepository.existsByEmail(email);
+    public UserResponse updateInfo(User theUser) {
+
+        UserResponse response = new UserResponse();
+        try {
+            User dbUser = userRepository.save(theUser);
+            response.setError(false);
+            response.setMessage("Update info successfully");
+            response.setUser(dbUser);
+        } catch (Exception e) {
+            response.setError(true);
+            response.setMessage("Error updating info");
+        }
+        return response;
     }
 
     @Override
-    public boolean existsByPhone(String phone) {
-        return userRepository.existsByPhone(phone);
+    public List<User> findUsersByRoleId(Integer id) {
+        return userRepository.findUsersByRoleId(id);
     }
 }

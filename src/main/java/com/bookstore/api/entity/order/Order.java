@@ -1,10 +1,10 @@
 package com.bookstore.api.entity.order;
 
 import com.bookstore.api.entity.user.User;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,22 +21,17 @@ public class Order {
     @Column(name = "id")
     private int id;
 
+    @ManyToOne
+    @JoinColumn(name = "order_track_id")
+    private OrderTrack orderTrack;
+
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderItem> orderItems = new ArrayList<>();;
+    @JsonManagedReference
+    private List<OrderItem> orderItems;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private String date;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
-
-    public double getTotal() {
-        double total = 0.0;
-        for (OrderItem item : orderItems) {
-            total += item.getTotal();
-        }
-        return total;
-    }
-
-    public void addOrderItem(OrderItem orderItem) {
-        orderItems.add(orderItem);
-    }
 }

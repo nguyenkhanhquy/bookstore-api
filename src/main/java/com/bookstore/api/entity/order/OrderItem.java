@@ -1,5 +1,6 @@
 package com.bookstore.api.entity.order;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,19 +21,13 @@ public class OrderItem {
     @Column(name = "name_product")
     private String nameProduct;
 
-    @Column(name = "size")
-    private String size;
-
     @Column(name = "quantity")
-    private int quantity = 1;
+    private int quantity;
 
     private double price;
 
     @ManyToOne
-    @JoinColumn(name = "customer_order_id", nullable = false)
+    @JoinColumn(name = "customer_order_id")
+    @JsonBackReference
     private Order order;
-
-    public double getTotal() {
-        return price * quantity;
-    }
 }

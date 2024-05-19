@@ -8,5 +8,5 @@ public interface RoleService {
 
     List<Role> findAll();
 
-    Role findById(int id);
+    Role findById(int roleId);
 }

@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "other_track")
+@Table(name = "order_track")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

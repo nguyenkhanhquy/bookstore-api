@@ -11,17 +11,17 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")
-public class RoleRestController {
+public class RoleController {
 
     private final RoleService roleService;
 
     @Autowired
-    public RoleRestController(RoleService roleService) {
+    public RoleController(RoleService roleService) {
         this.roleService = roleService;
     }
 
     @GetMapping("/roles")
-    public List<Role> getAllRoles() {
+    public List<Role> getRoles() {
         return roleService.findAll();
     }
 }

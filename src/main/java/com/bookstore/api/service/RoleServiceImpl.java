@@ -1,7 +1,7 @@
 package com.bookstore.api.service;
 
-import com.bookstore.api.dao.RoleRepository;
 import com.bookstore.api.entity.user.Role;
+import com.bookstore.api.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +23,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Role findById(int id) {
-        return roleRepository.findById(id).orElse(null);
+    public Role findById(int roleId) {
+        return roleRepository.findById(roleId).orElse(null);
     }
 }

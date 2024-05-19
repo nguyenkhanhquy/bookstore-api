@@ -1,6 +1,7 @@
-package com.bookstore.api.dto;
+package com.bookstore.api.response;
 
 import com.bookstore.api.entity.product.Product;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 @NoArgsConstructor
@@ -8,7 +9,8 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class ProductDTO {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class ProductResponse {
 
     private boolean error;
     private String message;
