@@ -30,10 +30,12 @@ Instructions on how to install, configure, and run the Book Store API project.
 
 ## Technology Stack
 
-- Back-end: Java, Spring Framework, Spring Boot, Spring Data JPA, Hibernate.
+- Programming Language: Java
+- Frameworks/Libraries: Spring Framework, Spring Boot, Spring Data JPA, Hibernate.
 - Database: MySQL.
+- IDE: IntelliJ IDEA.
 - Deployment: Heroku.
-- Image Storage: AWS S3.
+- Cloud Storage: AWS S3.
 
 ## Usage
 
