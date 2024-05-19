@@ -30,7 +30,10 @@ Instructions on how to install, configure, and run the Book Store API project.
 
 ## Technology Stack
 
-- Java, Spring Framework, Spring Boot, Spring Data JPA, Hibernate, MySQL.
+- Back-end: Java, Spring Framework, Spring Boot, Spring Data JPA, Hibernate.
+- Database: MySQL.
+- Deployment: Heroku.
+- Image Storage: AWS S3.
 
 ## Usage
 
@@ -49,10 +52,6 @@ Instructions on how to use the API and interact with its endpoints.
 - `DELETE /api/v1/products/{productId}` : Delete a product.
 - . . .
 
-<!-- ## Contributing
-
-Describe how users can contribute to your project or report issues. -->
-
 ## Author
 
 - Author Name: Nguyễn Khánh Quy
@@ -64,4 +63,4 @@ This project is licensed under the MIT License - see the [LICENSE](https://githu
 
 ## References
 
-- [Project Book App](https://github.com/nguyenkhanhquy/bookstore-app)
+- [Project Book APP](https://github.com/nguyenkhanhquy/bookstore-app)
