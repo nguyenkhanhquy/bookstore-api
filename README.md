@@ -2,6 +2,10 @@
 
 Final term project of the "Mobile Programming" course - Book Store API.
 
+## Class Diagram
+
+![Class Diagram](./assets/class_diagram.jpg)
+
 ## Getting Started
 
 Instructions on how to install, configure, and run the Book Store API project.

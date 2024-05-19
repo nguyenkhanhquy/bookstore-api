@@ -22,13 +22,9 @@ public class CartItem {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    private int quantity = 1;
+    private int quantity;
 
     @ManyToOne
     @JoinColumn(name = "cart_id", nullable = false)
     private Cart cart;
-
-    public double getTotal() {
-        return product.getPrice() * quantity;
-    }
 }
