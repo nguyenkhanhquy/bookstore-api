@@ -28,6 +28,10 @@ Instructions on how to install, configure, and run the Book Store API project.
     mvn spring-boot:run
     ```
 
+## Technology Stack
+
+- Java, Spring Framework, Spring Boot, Spring Data JPA, Hibernate, MySQL.
+
 ## Usage
 
 Instructions on how to use the API and interact with its endpoints.
