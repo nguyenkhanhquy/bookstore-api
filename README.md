@@ -80,7 +80,7 @@ project-name/
 
 ## Technology Stack
 
-- Programming Language: Java
+- Programming Language: Java.
 - Frameworks/Libraries: Spring Framework, Spring Boot, Spring Data JPA, Hibernate.
 - Database: MySQL.
 - IDE: IntelliJ IDEA.
