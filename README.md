@@ -2,21 +2,29 @@
 
 Final term project of the "Mobile Programming" course - Book Store API.
 
+## Table of Contents
+
+1. [Class Diagram](#class-diagram)
+1. [Prerequisites](#prerequisites)
+1. [Installation](#installation)
+1. [Project Structure](#project-structure)
+1. [Technology Stack](#technology-stack)
+1. [Usage](#usage)
+1. [Author](#author)
+1. [License](#license)
+1. [References](#references)
+
 ## Class Diagram
 
 ![Class Diagram](./assets/class_diagram.jpg)
 
-## Getting Started
-
-Instructions on how to install, configure, and run the Book Store API project.
-
-### Requirements
+## Prerequisites
 
 - Java Development Kit (JDK) 21 or later
 - Maven: 3.9.6
 - Spring Boot: 3.2.5
 
-### Installation
+## Installation
 
 1. Clone the project from the repository:
 
@@ -31,6 +39,44 @@ Instructions on how to install, configure, and run the Book Store API project.
     ```sh
     mvn spring-boot:run
     ```
+
+## Project Structure
+
+Here's a brief overview of the project's structure:
+
+```sh
+project-name/
+│
+├── src/
+│ ├── main/
+│ │ ├── java/
+│ │ │ └── com/
+│ │ │ └── example/
+│ │ │ └── projectname/
+│ │ │ ├── controller/ # REST API controllers
+│ │ │ ├── model/ # Domain models
+│ │ │ ├── repository/ # Data access repositories
+│ │ │ ├── service/ # Business logic services
+│ │ │ └── ProjectNameApplication.java # Main Spring Boot application
+│ │ ├── resources/
+│ │ ├── static/ # Static resources (CSS, JavaScript, images)
+│ │ ├── templates/ # Templates (Thymeleaf, Freemarker, etc.)
+│ │ ├── application.properties # Spring Boot configuration
+│ │ └── application.yml # Alternate configuration file (YAML format)
+│ ├── test/
+│ └── java/
+│ └── com/
+│ └── example/
+│ └── projectname/
+│ ├── controller/ # Test classes for controllers
+│ ├── model/ # Test classes for models
+│ ├── repository/ # Test classes for repositories
+│ └── service/ # Test classes for services
+├── mvnw # Maven Wrapper script (Unix)
+├── mvnw.cmd # Maven Wrapper script (Windows)
+├── pom.xml # Project Object Model file for Maven
+└── README.md # Project README file
+```
 
 ## Technology Stack
 
@@ -60,7 +106,7 @@ Instructions on how to use the API and interact with its endpoints.
 
 ## Author
 
-- Author Name: Nguyễn Khánh Quy
+- Author Name: `Nguyễn Khánh Quy`
 - Email: <nguyenkhanhquy123@gmail.com>
 
 ## License
